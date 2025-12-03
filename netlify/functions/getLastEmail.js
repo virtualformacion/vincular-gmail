@@ -100,6 +100,7 @@ exports.handler = async (event) => {
     const validLinks = [
       "https://www.netflix.com/account/travel/verify?nftoken=",
       "https://mail-settings.google.com/mail/",
+      "https://mail.google.com/mail/",
       "https://www.netflix.com/password?g=",
       "https://www.netflix.com/account/update-primary-location?nftoken="
     ];
@@ -180,6 +181,7 @@ function extractLink(text, validLinks) {
     const preferredLinks = [
       "https://www.netflix.com/account/travel/verify?nftoken=",
       "https://mail-settings.google.com/mail/",
+      "https://mail.google.com/mail/",
       "https://www.netflix.com/account/update-primary-location?nftoken="
     ];
 
