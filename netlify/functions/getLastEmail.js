@@ -93,6 +93,7 @@ exports.handler = async (event) => {
       "Completa tu solicitud de cambio de contraseña",
       "Gmail Confirmación de reenvío",
       "Confirmación de reenvío de Gmail",
+      "recibir correo de",
       "Completa tu solicitud de restablecimiento de contraseña"
     ];
 
