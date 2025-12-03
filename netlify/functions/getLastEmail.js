@@ -92,6 +92,7 @@ exports.handler = async (event) => {
       "Tu código de acceso temporal de Netflix",
       "Completa tu solicitud de cambio de contraseña",
       "Gmail Confirmación de reenvío",
+      "Confirmación de reenvío de Gmail",
       "Completa tu solicitud de restablecimiento de contraseña"
     ];
 
