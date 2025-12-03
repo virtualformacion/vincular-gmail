@@ -1,0 +1,81 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>vinculación-bot</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .login-container {
+        text-align: center;
+        padding: 20px;
+    }
+    .login-container input {
+        display: block;
+        margin: 10px auto;
+        padding: 10px;
+        font-size: 16px;
+    }
+    .login-container button {
+        padding: 10px 20px;
+        font-size: 16px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        cursor: pointer;
+    }
+    .message-container {
+        display: none;
+        position: fixed;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background-color: rgba(0, 0, 0, 0.8);
+        color: white;
+        padding: 20px;
+        overflow: auto;
+        font-size: 16px;
+        z-index: 9999;
+        max-height: 100vh;
+    }
+    .close-button {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background-color: #ff4747;
+        color: white;
+        border: none;
+        padding: 10px;
+        cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Login -->
+  <div class="login-container" id="loginContainer">
+    <h2>Iniciar sesión</h2>
+    <form id="loginForm">
+      <input type="text" id="loginUser" placeholder="Usuario" required>
+      <input type="password" id="loginPass" placeholder="Contraseña" required>
+      <button type="submit">Acceder</button>
+    </form>
+    <p id="loginMessage" style="color: red; margin-top: 10px;"></p>
+  </div>
+
+  <!-- Interfaz original (oculta hasta login exitoso) -->
+  <div class="container" style="display: none;">
+    <h1 class="title">vincular correo con el bot</h1>
+    <form id="emailForm">
+      <input type="email" id="email" placeholder="Introduce tu correo" required class="email-input">
+      <button type="submit" class="submit-button">confirmar vinculación</button>
+    </form>
+  </div>
+
+  <!-- Modal Disney+ -->
+  <div id="messageModal" class="message-container">
+    <button class="close-button" id="closeModal">Cerrar</button>
+    <div id="messageBody"></div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
