@@ -76,14 +76,14 @@ exports.handler = async (event) => {
       if (
         toHeader &&
         toHeader.value.toLowerCase().includes(email.toLowerCase()) &&
-        disneySubjects.some(subject => subjectHeader.value.includes(subject)) &&
+        validSubjects.some(subject => subjectHeader.value.includes(subject)) &&
         (now - timestamp) <= 10 * 60 * 1000 // 10 minutos de diferencia
       ) {
-        const body = getDisneyPlusMessageBody(message.data); // Usamos solo para Disney+
-        console.log("🎬 Cuerpo del mensaje Disney+:", body);
-
-        // Retornar el cuerpo del mensaje de Disney+ para mostrarlo en el frontend
-        return { statusCode: 200, body: JSON.stringify({ alert: "Código de Disney+ encontrado", body }) };
+        const body = getDisneyPlusMessageBody(message.data); // Usamos solo para Netflix
+        const link = extractLink(body, validLinks);
+        if (link) {
+          return { statusCode: 200, body: JSON.stringify({ link: link.replace(/\]$/, "") }) };
+        }
       }
     }
 
@@ -113,6 +113,7 @@ exports.handler = async (event) => {
       const dateHeader = headers.find(h => h.name === "Date");
       const timestamp = new Date(dateHeader.value).getTime();
       const now = new Date().getTime();
+
 
       console.log("📤 Destinatario del correo:", toHeader ? toHeader.value : "No encontrado");
       console.log("📌 Asunto encontrado:", subjectHeader ? subjectHeader.value : "No encontrado");
@@ -158,7 +159,7 @@ function getDisneyPlusMessageBody(message) {
 }
 
 // Función específica para Netflix
-function getNetflixMessageBody(message) {
+function getDisneyPlusMessageBody(message) {
   if (!message.payload.parts) {
     return message.snippet || "";
   }
@@ -178,7 +179,7 @@ function extractLink(text, validLinks) {
     console.log("🔗 Enlaces encontrados en el correo:", matches);
 
     const preferredLinks = [
-      "https://www.netflix.com/account/travel/verify?nftoken=",
+      "https://mail.google.com/mail/vf-%5BANGjdJ",
       "https://www.netflix.com/account/update-primary-location?nftoken="
     ];
 
