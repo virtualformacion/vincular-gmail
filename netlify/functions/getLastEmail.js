@@ -91,7 +91,7 @@ exports.handler = async (event) => {
       "Importante: Cómo cambiar tu hogar Netflix1",
       "Tu código de acceso temporal de Netflix1",
       "Completa tu solicitud de cambio de contraseña1",
-      "recibir correo de",
+      "Confirmación de reenvío de Gmail: recibir correo de fabiperezperez18@gmail.com",
       "Completa tu solicitud de restablecimiento de contraseña1"
     ];
 
