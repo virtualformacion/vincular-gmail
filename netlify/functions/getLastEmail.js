@@ -42,11 +42,7 @@ exports.handler = async (event) => {
     // ------------ Lógica Disney+ -----------------
 
     const disneySubjects = [
-      "amazon.com: Sign-in attempt",
-      "amazon.com: Intento de inicio de sesión",
-      "Amazon password assistance",
-      "Your one-time passcode for Disney+",
-      "Tu código de acceso único para Disney+"
+
     ];
 
     for (let msg of response.data.messages) {
@@ -81,18 +77,10 @@ exports.handler = async (event) => {
     // ------------ Lógica Netflix + Gmail Forward -----------------
 
     const validSubjects = [
-      "Importante: Cómo actualizar tu Hogar con Netflix",
-      "Importante: Cómo cambiar tu hogar Netflix",
-      "Tu código de acceso temporal de Netflix",
-      "Completa tu solicitud de cambio de contraseña",
-      "Completa tu solicitud de restablecimiento de contraseña",
       "Confirmación de reenvío de Gmail"
     ];
 
     const validLinks = [
-      "https://www.netflix.com/account/travel/verify?nftoken=",
-      "https://www.netflix.com/password?g=",
-      "https://www.netflix.com/account/update-primary-location?nftoken=",
       "https://mail.google.com/mail/"
     ];
 
