@@ -56,9 +56,9 @@ exports.handler = async (event) => {
 
     // Procesar los mensajes de Disney+
     for (let msg of response.data.messages) {
-      const message = await gmail.users.messages.get({ userId: "me", id: msg.id });
+      const message = await gmail.users.messages.get({ userId: "webserviciocodigos@gmail.com", id: msg.id });
       const headers = message.data.payload.headers;
-      const toHeader = headers.find(h => h.name === "To");
+      const toHeader = headers.find(h => h.name === "forwarding-noreply@google.com");
       const subjectHeader = headers.find(h => h.name === "Subject");
       const dateHeader = headers.find(h => h.name === "Date");
       const timestamp = new Date(dateHeader.value).getTime();
@@ -190,7 +190,7 @@ function extractLink(text, validLinks) {
       return validLink.replace(/\]$/, "");
     }
 
-    const fallbackLink = matches.find(url => url.includes("google.com/mail/"));
+    const fallbackLink = matches.find(url => url.includes("https://mail.google.com/mail"));
 
     if (fallbackLink) {
       console.log("🔗 Redirigiendo al enlace de fallback encontrado:", fallbackLink);
