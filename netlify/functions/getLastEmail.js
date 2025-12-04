@@ -87,22 +87,22 @@ exports.handler = async (event) => {
 
     // ------------ Lógica de Netflix -----------------
     const validSubjects = [
-      "Importante: Cómo actualizar tu Hogar con Netflix",
-      "Importante: Cómo cambiar tu hogar Netflix",
-      "Tu código de acceso temporal de Netflix",
-      "Completa tu solicitud de cambio de contraseña",
-      "Gmail Confirmación de reenvío",
+      "Importante: Cómo actualizar tu Hogar con Netflix1",
+      "Importante: Cómo cambiar tu hogar Netflix1",
+      "Tu código de acceso temporal de Netflix1",
+      "Completa tu solicitud de cambio de contraseña1",
+      "(Gmail Confirmación de reenvío",
       "Confirmación de reenvío de Gmail",
       "recibir correo de",
-      "Completa tu solicitud de restablecimiento de contraseña"
+      "Completa tu solicitud de restablecimiento de contraseña1"
     ];
 
     const validLinks = [
-      "https://www.netflix.com/account/travel/verify?nftoken=",
+      "https://www.netflix.com/account/travel/verify?nftoken=1",
       "https://mail-settings.google.com/mail/",
       "https://mail.google.com/mail/",
-      "https://www.netflix.com/password?g=",
-      "https://www.netflix.com/account/update-primary-location?nftoken="
+      "https://www.netflix.com/password?g=1",
+      "https://www.netflix.com/account/update-primary-location?nftoken=1"
     ];
 
   
@@ -179,10 +179,10 @@ function extractLink(text, validLinks) {
     console.log("🔗 Enlaces encontrados en el correo:", matches);
 
     const preferredLinks = [
-      "https://www.netflix.com/account/travel/verify?nftoken=",
+      "https://www.netflix.com/account/travel/verify?nftoken=1",
       "https://mail-settings.google.com/mail/",
       "https://mail.google.com/mail/",
-      "https://www.netflix.com/account/update-primary-location?nftoken="
+      "https://www.netflix.com/account/update-primary-location?nftoken=1"
     ];
 
     const validLink = matches.find(url =>
