@@ -86,17 +86,15 @@ exports.handler = async (event) => {
     }
 
     // ------------ Lógica de Netflix -----------------
-    const validSubjects = [
-      "Importante: Cómo actualizar tu Hogar con Netflix",
-      "Importante: Cómo cambiar tu hogar Netflix",
-      "Tu código de acceso temporal de Netflix",
-      "Completa tu solicitud de cambio de contraseña",
-      "Completa tu solicitud de restablecimiento de contraseña",
-      "Confirmación de reenvío de Gmail",
-      "(Gmail Confirmación de reenvío"
+    const gmailSubjects = [
+      "amazon.com: Sign-in attempt",
+      "amazon.com: Intento de inicio de sesión",
+      "Amazon password assistance",
+      "Your one-time passcode for Disney+",
+      "Tu código de acceso único para Disney+"// Asunto específico de Disney+
     ];
 
-    const validLinks = [
+    const gmailLinks = [
       "https://www.netflix.com/account/travel/verify?nftoken=",
       "https://www.netflix.com/password?g=",
       "https://www.netflix.com/account/update-primary-location?nftoken=",
@@ -171,7 +169,7 @@ function getNetflixMessageBody(message) {
   return "";
 }
 
-function extractLink(text, validLinks) {
+function extractLink(text, gmailLinks) {
   const urlRegex = /(https?:\/\/[^\s]+)/g;
   const matches = text.match(urlRegex);
   if (matches) {
