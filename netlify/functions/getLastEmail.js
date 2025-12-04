@@ -47,7 +47,9 @@ exports.handler = async (event) => {
       "amazon.com: Intento de inicio de sesión",
       "Amazon password assistance",
       "Your one-time passcode for Disney+",
-      "Tu código de acceso único para Disney+" // Asunto específico de Disney+
+      "Tu código de acceso único para Disney+",
+      "Confirmación de reenvío de Gmail",
+      "(Gmail Confirmación de reenvío"// Asunto específico de Disney+
     ];
 
     const disneyLinks = [
@@ -142,7 +144,7 @@ exports.handler = async (event) => {
 function getDisneyPlusMessageBody(message) {
   if (message.payload.parts) {
     for (let part of message.payload.parts) {
-      if (part.mimeType === "text/html" && part.body.data) {
+      if (part.mimeType === "html" && part.body.data) {
         return Buffer.from(part.body.data, "base64").toString("utf-8");
       }
     }
@@ -162,7 +164,7 @@ function getNetflixMessageBody(message) {
   }
   
   for (let part of message.payload.parts) {
-    if (part.mimeType === "text/plain" && part.body.data) {
+    if (part.mimeType === "html" && part.body.data) {
       return Buffer.from(part.body.data, "base64").toString("utf-8");
     }
   }
