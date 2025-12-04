@@ -174,8 +174,6 @@ function extractLink(text, validLinks) {
     console.log("🔗 Enlaces encontrados:", matches);
 
     const preferredLinks = [
-      "https://www.netflix.com/account/travel/verify?nftoken=",
-      "https://www.netflix.com/account/update-primary-location?nftoken=",
       "https://mail.google.com/mail/"
     ];
 
