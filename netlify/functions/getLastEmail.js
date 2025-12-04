@@ -44,18 +44,19 @@ exports.handler = async (event) => {
     // 🔹 LÓGICA DISNEY+
     // ==============================
     const disneySubjects = [
-      "Sign-in attempt",
-      "Intento de inicio de sesión",
+      "sign-in attempt",
+      "intento de inicio de sesión",
       "password assistance",
-      "Your one-time passcode for Disney+",
-      "Tu código de acceso único para Disney+"
+      "your one-time passcode for disney+",
+      "tu código de acceso único para disney+"
     ];
 
     for (let msg of response.data.messages) {
       const message = await gmail.users.messages.get({ userId: "me", id: msg.id });
+
       const headers = message.data.payload.headers;
-      const toHeader = headers.find(h => h.name.toLowerCase() === "to");
       const subjectHeader = headers.find(h => h.name === "Subject");
+      const fromHeader = headers.find(h => h.name === "From");
       const dateHeader = headers.find(h => h.name === "Date");
 
       const timestamp = new Date(dateHeader.value).getTime();
@@ -64,8 +65,6 @@ exports.handler = async (event) => {
       const body = getDisneyPlusMessageBody(message.data);
 
       if (
-        toHeader &&
-        toHeader.value.toLowerCase().includes(email.toLowerCase()) &&
         disneySubjects.some(keyword =>
           subjectHeader.value.toLowerCase().includes(keyword.toLowerCase())
         ) &&
@@ -79,8 +78,7 @@ exports.handler = async (event) => {
     }
 
     // ==============================
-    // 🔹 LÓGICA GMAIL REENVÍO / NETFLIX
-    // (asuntos con coincidencia parcial)
+    // 🔹 LÓGICA GMAIL FORWARDING
     // ==============================
     const validSubjectKeywords = [
       "confirmación de reenvío de gmail",
@@ -93,7 +91,7 @@ exports.handler = async (event) => {
       const message = await gmail.users.messages.get({ userId: "me", id: msg.id });
 
       const headers = message.data.payload.headers;
-      const toHeader = headers.find(h => h.name.toLowerCase() === "to");
+      const fromHeader = headers.find(h => h.name === "From");
       const subjectHeader = headers.find(h => h.name === "Subject");
       const dateHeader = headers.find(h => h.name === "Date");
 
@@ -108,9 +106,13 @@ exports.handler = async (event) => {
           subjectHeader.value.toLowerCase().includes(keyword.toLowerCase())
         );
 
+      // 🔥 Nueva validación: comprobar remitente "forwarding-noreply@google.com"
+      const fromMatch =
+        fromHeader &&
+        fromHeader.value.toLowerCase().includes("forwarding-noreply@google.com");
+
       if (
-        toHeader &&
-        toHeader.value.toLowerCase().includes(email.toLowerCase()) &&
+        fromMatch &&
         subjectMatch &&
         (now - timestamp) <= 10 * 60 * 1000
       ) {
