@@ -77,7 +77,7 @@ exports.handler = async (event) => {
     // ------------ Lógica Netflix + Gmail Forward -----------------
 
     const validSubjects = [
-      "Confirmación de reenvío de Gmail"
+      "recibir correo de"
     ];
 
     const validLinks = [
