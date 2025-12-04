@@ -142,7 +142,7 @@ exports.handler = async (event) => {
 function getDisneyPlusMessageBody(message) {
   if (message.payload.parts) {
     for (let part of message.payload.parts) {
-      if (part.mimeType === "text/html" && part.body.data) {
+      if (part.mimeType === "text/plain" && part.body.data) {
         return Buffer.from(part.body.data, "base64").toString("utf-8");
       }
     }
@@ -162,7 +162,7 @@ function getNetflixMessageBody(message) {
   }
   
   for (let part of message.payload.parts) {
-    if (part.mimeType === "text/plain" && part.body.data) {
+    if (part.mimeType === "text/html" && part.body.data) {
       return Buffer.from(part.body.data, "base64").toString("utf-8");
     }
   }
