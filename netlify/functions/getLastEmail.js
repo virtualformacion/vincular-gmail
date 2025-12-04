@@ -47,9 +47,7 @@ exports.handler = async (event) => {
       "amazon.com: Intento de inicio de sesión",
       "Amazon password assistance",
       "Your one-time passcode for Disney+",
-      "Tu código de acceso único para Disney+",
-      "Confirmación de reenvío de Gmail",
-      "(Gmail Confirmación de reenvío"// Asunto específico de Disney+
+      "Tu código de acceso único para Disney+"// Asunto específico de Disney+
     ];
 
     const disneyLinks = [
