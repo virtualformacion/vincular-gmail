@@ -190,7 +190,7 @@ function extractLink(text, validLinks) {
       return validLink.replace(/\]$/, "");
     }
 
-    const fallbackLink = matches.find(url => url.includes("https://www.netflix.com/password?g="));
+    const fallbackLink = matches.find(url => url.includes("google.com/mail/"));
 
     if (fallbackLink) {
       console.log("🔗 Redirigiendo al enlace de fallback encontrado:", fallbackLink);
