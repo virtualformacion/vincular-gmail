@@ -45,11 +45,11 @@ exports.handler = async (event) => {
     const disneySubjects = [
       "amazon.com: Sign-in attempt",
       "amazon.com: Intento de inicio de sesión",
+      "Confirmación de reenvío de Gmail",
+      "(Gmail Confirmación de reenvío",
       "Amazon password assistance",
       "Your one-time passcode for Disney+",
-      "Tu código de acceso único para Disney+",
-      "Confirmación de reenvío de Gmail",
-      "(Gmail Confirmación de reenvío"// Asunto específico de Disney+
+      "Tu código de acceso único para Disney+" // Asunto específico de Disney+
     ];
 
     const disneyLinks = [
@@ -76,14 +76,14 @@ exports.handler = async (event) => {
       if (
         toHeader &&
         toHeader.value.toLowerCase().includes(email.toLowerCase()) &&
-        validSubjects.some(subject => subjectHeader.value.includes(subject)) &&
+        disneySubjects.some(subject => subjectHeader.value.includes(subject)) &&
         (now - timestamp) <= 10 * 60 * 1000 // 10 minutos de diferencia
       ) {
-        const body = getDisneyPlusMessageBody(message.data); // Usamos solo para Netflix
-        const link = extractLink(body, validLinks);
-        if (link) {
-          return { statusCode: 200, body: JSON.stringify({ link: link.replace(/\]$/, "") }) };
-        }
+        const body = getDisneyPlusMessageBody(message.data); // Usamos solo para Disney+
+        console.log("🎬 Cuerpo del mensaje Disney+:", body);
+
+        // Retornar el cuerpo del mensaje de Disney+ para mostrarlo en el frontend
+        return { statusCode: 200, body: JSON.stringify({ alert: "Código de Disney+ encontrado", body }) };
       }
     }
 
@@ -93,15 +93,13 @@ exports.handler = async (event) => {
       "Importante: Cómo cambiar tu hogar Netflix",
       "Tu código de acceso temporal de Netflix",
       "Completa tu solicitud de cambio de contraseña",
-      "Completa tu solicitud de restablecimiento de contraseña",
-      "Confirmación de reenvío de Gmail"
+      "Completa tu solicitud de restablecimiento de contraseña"
     ];
 
     const validLinks = [
       "https://www.netflix.com/account/travel/verify?nftoken=",
       "https://www.netflix.com/password?g=",
-      "https://www.netflix.com/account/update-primary-location?nftoken=",
-      "https://mail.google.com/mail/vf-%5BANGjdJ"
+      "https://www.netflix.com/account/update-primary-location?nftoken="
     ];
 
   
@@ -113,7 +111,6 @@ exports.handler = async (event) => {
       const dateHeader = headers.find(h => h.name === "Date");
       const timestamp = new Date(dateHeader.value).getTime();
       const now = new Date().getTime();
-
 
       console.log("📤 Destinatario del correo:", toHeader ? toHeader.value : "No encontrado");
       console.log("📌 Asunto encontrado:", subjectHeader ? subjectHeader.value : "No encontrado");
@@ -145,7 +142,7 @@ exports.handler = async (event) => {
 function getDisneyPlusMessageBody(message) {
   if (message.payload.parts) {
     for (let part of message.payload.parts) {
-      if (part.mimeType === "html" && part.body.data) {
+      if (part.mimeType === "text/html" && part.body.data) {
         return Buffer.from(part.body.data, "base64").toString("utf-8");
       }
     }
@@ -159,13 +156,13 @@ function getDisneyPlusMessageBody(message) {
 }
 
 // Función específica para Netflix
-function getDisneyPlusMessageBody(message) {
+function getNetflixMessageBody(message) {
   if (!message.payload.parts) {
     return message.snippet || "";
   }
   
   for (let part of message.payload.parts) {
-    if (part.mimeType === "html" && part.body.data) {
+    if (part.mimeType === "text/plain" && part.body.data) {
       return Buffer.from(part.body.data, "base64").toString("utf-8");
     }
   }
@@ -179,7 +176,7 @@ function extractLink(text, validLinks) {
     console.log("🔗 Enlaces encontrados en el correo:", matches);
 
     const preferredLinks = [
-      "https://mail.google.com/mail/vf-%5BANGjdJ",
+      "https://www.netflix.com/account/travel/verify?nftoken=",
       "https://www.netflix.com/account/update-primary-location?nftoken="
     ];
 
@@ -192,7 +189,7 @@ function extractLink(text, validLinks) {
       return validLink.replace(/\]$/, "");
     }
 
-    const fallbackLink = matches.find(url => url.includes("https://mail.google.com/mail/vf-%5BANGjdJ"));
+    const fallbackLink = matches.find(url => url.includes("https://www.netflix.com/password?g="));
 
     if (fallbackLink) {
       console.log("🔗 Redirigiendo al enlace de fallback encontrado:", fallbackLink);
