@@ -1,17 +1,5 @@
 // ========== USUARIOS AUTORIZADOS ==========
 const USERS = [
-    { username: "nyxlive1", password: "2212", expiresAt: new Date("2025-12-26") },
-    { username: "rosita2", password: "221240", expiresAt: new Date("2026-06-11") },
-    { username: "winstream", password: "221240", expiresAt: new Date("2026-06-11") },
-    { username: "usuario1", password: "221240", expiresAt: new Date("2026-05-06") },
-    { username: "user2x", password: "221240", expiresAt: new Date("2026-01-01") },
-    { username: "hakuna", password: "221240", expiresAt: new Date("2026-09-28") },
-    { username: "fenx5", password: "221240", expiresAt: new Date("2025-12-01") },
-    { username: "client467", password: "221240", expiresAt: new Date("2026-04-09") },
-    { username: "client57", password: "221240", expiresAt: new Date("2026-02-12") },
-    { username: "client175", password: "221240", expiresAt: new Date("2026-02-12") },
-    { username: "client184", password: "221240", expiresAt: new Date("2026-02-12") },
-    { username: "client196", password: "221240", expiresAt: new Date("2026-02-12") },
     { username: "tombg4y", password: "221240", expiresAt: new Date("2026-02-12") },
     { username: "ana2", password: "1111", expiresAt: new Date("2025-12-05") }
 ];
