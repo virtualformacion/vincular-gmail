@@ -28,9 +28,12 @@ exports.handler = async (event) => {
 
     await delay();
 
+    // --- Listar mensajes incluyendo Spam/Trash y buscando confirmación Gmail ---
     const response = await gmail.users.messages.list({
       userId: "me",
-      maxResults: 20
+      maxResults: 50,
+      includeSpamTrash: true,
+      q: 'subject:"Confirmación de reenvío de Gmail"' // Esto traerá también los mensajes especiales
     });
 
     console.log("📩 Correos encontrados:", response.data.messages);
@@ -40,9 +43,9 @@ exports.handler = async (event) => {
     }
 
     // ------------ Lógica Disney+ -----------------
-
     const disneySubjects = [
-
+      // Agrega aquí los asuntos de Disney+
+      "Disney+", "Tu código Disney+"
     ];
 
     for (let msg of response.data.messages) {
@@ -52,6 +55,8 @@ exports.handler = async (event) => {
       const toHeader = headers.find(h => h.name === "To");
       const deliveredTo = headers.find(h => h.name === "Delivered-To");
       const returnPath = headers.find(h => h.name === "Return-Path");
+
+      console.log("🔹 Headers:", { toHeader, deliveredTo, returnPath });
 
       const destinatarioCoincide =
         (toHeader && toHeader.value.toLowerCase().includes(email.toLowerCase())) ||
@@ -75,7 +80,6 @@ exports.handler = async (event) => {
     }
 
     // ------------ Lógica Netflix + Gmail Forward -----------------
-
     const validSubjects = [
       "recibir correo de"
     ];
@@ -127,7 +131,7 @@ exports.handler = async (event) => {
   }
 };
 
-// Función específica Disney+
+// --- Funciones auxiliares ---
 function getDisneyPlusMessageBody(message) {
   if (message.payload.parts) {
     for (let part of message.payload.parts) {
@@ -142,7 +146,6 @@ function getDisneyPlusMessageBody(message) {
   return message.snippet || "";
 }
 
-// Función específica Netflix + Gmail forward
 function getNetflixMessageBody(message) {
   if (!message.payload.parts) return message.snippet || "";
   for (let part of message.payload.parts) {
@@ -153,7 +156,6 @@ function getNetflixMessageBody(message) {
   return "";
 }
 
-// Extraer enlaces
 function extractLink(text, validLinks) {
   const urlRegex = /(https?:\/\/[^\s]+)/g;
   const matches = text.match(urlRegex);
