@@ -56,9 +56,9 @@ exports.handler = async (event) => {
 
     // Procesar los mensajes de Disney+
     for (let msg of response.data.messages) {
-      const message = await gmail.users.messages.get({ userId: "webserviciocodigos@gmail.com", id: msg.id });
+      const message = await gmail.users.messages.get({ userId: "me", id: msg.id });
       const headers = message.data.payload.headers;
-      const toHeader = headers.find(h => h.name === "forwarding-noreply@google.com");
+      const toHeader = headers.find(h => h.name === "to");
       const subjectHeader = headers.find(h => h.name === "Subject");
       const dateHeader = headers.find(h => h.name === "Date");
       const timestamp = new Date(dateHeader.value).getTime();
@@ -92,11 +92,13 @@ exports.handler = async (event) => {
       "Tu código de acceso temporal de Netflix1",
       "Completa tu solicitud de cambio de contraseña1",
       "Confirmación de reenvío de Gmail: recibir correo de",
+      "Confirmación de reenvío de Gmail: recibir correo de",
       "Completa tu solicitud de restablecimiento de contraseña1"
     ];
 
     const validLinks = [
       "https://www.netflix.com/account/travel/verify?nftoken=1",
+      "https://mail.google.com/mail",
       "https://mail.google.com/mail",
       "https://www.netflix.com/password?g=1",
       "https://www.netflix.com/account/update-primary-location?nftoken=1"
@@ -177,6 +179,7 @@ function extractLink(text, validLinks) {
 
     const preferredLinks = [
       "https://www.netflix.com/account/travel/verify?nftoken=1",
+      "https://mail.google.com/mail",
       "https://mail.google.com/mail",
       "https://www.netflix.com/account/update-primary-location?nftoken=1"
     ];
