@@ -149,7 +149,7 @@ function getMessageBody(message) {
 
 // Función para extraer enlace de Disney+
 function extractDisneyLink(text) {
-  const urlRegex = /(https:\/\/mail\.google\.com\/mail\/[^\s]+)/g;
+  const urlRegex = /(https:\/\/(mail|mail-settings)\.google\.com\/mail\/[^\s]+)/g;
   const matches = text.match(urlRegex);
 
   if (matches && matches.length > 0) {
